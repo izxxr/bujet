@@ -50,8 +50,3 @@ ENCRYPTION_KEY = __get_key("BUJET_ENCRYPTION_KEY")
 
 CACHE_MAX_USERS = __get_key("BUJET_CACHE_MAX_USERS", 256, as_int=True)
 """The maximum number of users that are cached in memory at a time."""
-
-# Testing
-
-TEST_USER_ID = __get_key("BUJET_TEST_USER_ID", None)
-TEST_USER_TOKEN = __get_key("BUJET_TEST_USER_TOKEN", None)
