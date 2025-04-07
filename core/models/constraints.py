@@ -1,0 +1,10 @@
+# Copyright (C) Izhar Ahmad 2025-2026 - under the MIT license
+
+from __future__ import annotations
+
+# Users
+USER_DISPLAY_NAME_MIN_LENGTH = 0
+USER_DISPLAY_NAME_MAX_LENGTH = 128
+USER_USERNAME_MIN_LENGTH = 3
+USER_USERNAME_MAX_LENGTH = 64
+USER_PASSWORD_MIN_LENGTH = 8
