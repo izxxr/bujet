@@ -180,8 +180,7 @@ async def calculate_balance(request: Request, account_id: UUID4) -> schemas.Calc
     """Calculates the balance of the account.
     
     Like transactions, the balance is also returned in minor units format
-    and must be divided by account's currency_decimals to obtain the actual
-    balance value.
+    and must be divided by 100 to obtain the actual balance value.
     """
     acc = await fetch_account(request, account_id)
     vals = await models.Transaction.filter(account=acc).annotate(balance=Sum("amount")).first()

@@ -61,6 +61,10 @@ class FinancialAccount(Model):
     currency_decimals = fields.IntField(default=2)
     """The number of decimals that the currency has that this account uses.
 
+    Note: this field is currently neither used by server nor the client.
+    Regardless, of the value of this field, the currency decimals should
+    be taken as 2.
+
     This attribute is applicable for all transaction amounts associated
     to this account. For more information, see the "amount" field's documentation
     in Transaction model.
