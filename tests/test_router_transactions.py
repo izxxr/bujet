@@ -83,8 +83,13 @@ def test_list_transactions(state: RouterTestState):
 
     assert len(data) == len(transactions)
 
+    balance = 0
+
     for idx, recv_transaction in enumerate(data):
         assert recv_transaction == responses[idx]
+        balance += responses[idx]["amount"]
+
+    state.baton["balance"] = balance  # for the next test
 
     # Test - get 3 latest transactions
     response = state.client.get(
@@ -159,10 +164,7 @@ def test_balance(state: RouterTestState):
     )
 
     assert response.status_code == 200
-
-    print(response.json())
-
-    assert False
+    assert response.json()["balance"] == state.baton["balance"]  # state.baton["balance"] set by previous test
 
 def test_log_transaction(state: RouterTestState):
     assert state.user is not None

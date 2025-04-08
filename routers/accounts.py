@@ -187,4 +187,4 @@ async def calculate_balance(request: Request, account_id: UUID4) -> schemas.Calc
     vals = await models.Transaction.filter(account=acc).annotate(balance=Sum("amount")).first()
 
     # Transaction.balance is added by annotate()
-    return schemas.CalculateBalanceResponse(vals.balance)  # type: ignore
+    return schemas.CalculateBalanceResponse(balance=vals.balance)  # type: ignore
