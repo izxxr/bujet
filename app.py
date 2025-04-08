@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from tortoise import Tortoise, connections
 from core.database import DatabaseClient
 
@@ -28,6 +29,15 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(version="0.1.0", lifespan=lifespan)
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 for router in routers.__include_routers__:
     app.include_router(router)
