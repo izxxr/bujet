@@ -126,7 +126,7 @@ async def list_transactions(
         kwargs["date__lte"] = before
 
     acc = await fetch_account(request, account_id)
-    transactions = await models.Transaction.filter(**kwargs, account=acc).limit(limit).order_by("date")
+    transactions = await models.Transaction.filter(**kwargs, account=acc).limit(limit).order_by("-date")
 
     return [schemas.Transaction.from_db_model(t, acc) for t in transactions]
 

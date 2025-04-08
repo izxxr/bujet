@@ -50,13 +50,13 @@ def test_list_transactions(state: RouterTestState):
     assert state.user is not None
 
     transactions: list[dict[str, Any]] = [
-        {"amount": 133, "date": _date_std_isoformat(2023, 11, 9, tzinfo=datetime.timezone.utc)},
-        {"amount": -12, "date": _date_std_isoformat(2024, 3, 1, tzinfo=datetime.timezone.utc)},
-        {"amount": 2512, "date": _date_std_isoformat(2024, 12, 11, tzinfo=datetime.timezone.utc)},
-        {"amount": 3200, "date": _date_std_isoformat(2025, 8, 4, tzinfo=datetime.timezone.utc)},
-        {"amount": -532, "date": _date_std_isoformat(2025, 8, 6, tzinfo=datetime.timezone.utc)},
-        {"amount": 3211, "date": _date_std_isoformat(2025, 9, 12, tzinfo=datetime.timezone.utc)},
         {"amount": 999, "date": _date_std_isoformat(2025, 12, 11, tzinfo=datetime.timezone.utc)},
+        {"amount": 3211, "date": _date_std_isoformat(2025, 9, 12, tzinfo=datetime.timezone.utc)},
+        {"amount": -532, "date": _date_std_isoformat(2025, 8, 6, tzinfo=datetime.timezone.utc)},
+        {"amount": 3200, "date": _date_std_isoformat(2025, 8, 4, tzinfo=datetime.timezone.utc)},
+        {"amount": 2512, "date": _date_std_isoformat(2024, 12, 11, tzinfo=datetime.timezone.utc)},
+        {"amount": -12, "date": _date_std_isoformat(2024, 3, 1, tzinfo=datetime.timezone.utc)},
+        {"amount": 133, "date": _date_std_isoformat(2023, 11, 9, tzinfo=datetime.timezone.utc)},
     ]
     responses: list[dict[str, Any]] = []
 
@@ -117,8 +117,8 @@ def test_list_transactions(state: RouterTestState):
     data = response.json()
     assert len(data) == 2
 
-    assert data[0] == transactions[5]
-    assert data[1] == transactions[6]
+    assert data[0] == transactions[0]
+    assert data[1] == transactions[1]
 
     # Test - Get transactions before a date
     response = state.client.get(
@@ -131,9 +131,9 @@ def test_list_transactions(state: RouterTestState):
     data = response.json()
     assert len(data) == 3
 
-    assert data[0] == transactions[0]
-    assert data[1] == transactions[1]
-    assert data[2] == transactions[2]
+    assert data[0] == transactions[4]
+    assert data[1] == transactions[5]
+    assert data[2] == transactions[6]
 
     # Test - Get transactions in a range of dates
     response = state.client.get(
@@ -149,10 +149,10 @@ def test_list_transactions(state: RouterTestState):
     data = response.json()
     assert len(data) == 4
 
-    assert data[0] == transactions[1]
-    assert data[1] == transactions[2]
-    assert data[2] == transactions[3]
-    assert data[3] == transactions[4]
+    assert data[0] == transactions[2]
+    assert data[1] == transactions[3]
+    assert data[2] == transactions[4]
+    assert data[3] == transactions[5]
 
 
 def test_balance(state: RouterTestState):
