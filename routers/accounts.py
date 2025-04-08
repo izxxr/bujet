@@ -116,7 +116,7 @@ async def list_transactions(
         20 and capped at 40 per request.
     """
     if limit > 40:
-        raise HTTPException(400, "limit cannot be greater than 40")
+        raise HTTPException(422, "limit cannot be greater than 40")
     
     kwargs = {}
 
