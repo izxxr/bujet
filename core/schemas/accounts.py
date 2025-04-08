@@ -112,7 +112,7 @@ class EditAccountJSON(APIModel):
         max_length=constraints.ACCOUNT_DESCRIPTION_MAX_LENGTH,
         default=MISSING,
     )
-    currency_decimals: int = Field(default=2)
+    currency_decimals: int = Field(default=MISSING)
 
     def to_dict(self) -> dict[str, Any]:
         """Returns the dictionary that can be uesd to update the model in database"""

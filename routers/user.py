@@ -73,7 +73,7 @@ async def update_user(request: Request, data: schemas.EditUserJSON) -> schemas.U
     update_data = data.to_dict()
 
     # Validate uniqueness of username
-    if "username" in update_data:
+    if "username" in update_data and update_data["username"] != user.username:
         existing = await models.User.filter(username=update_data["username"]).first()
         if existing:
             raise HTTPException(409, "The new username is already taken.")
