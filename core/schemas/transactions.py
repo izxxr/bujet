@@ -20,6 +20,7 @@ __all__ = (
     "Transaction",
     "LogTransactionJSON",
     "EditTransactionJSON",
+    "CountTransactionsResponse",
 )
 
 
@@ -119,3 +120,13 @@ class EditTransactionJSON(APIModel):
     def to_dict(self) -> dict[str, Any]:
         """Returns the dictionary that can be used to update the model in database"""
         return self.model_dump(exclude_defaults=True)
+
+
+class CountTransactionsResponse(APIModel):
+    """
+    Pydantic model representing JSON body for the GET /accounts/{account_id}/transactions-response
+    or Count Transactions endpoint.
+    """
+
+    count: int
+    """The number of transactions in the account."""

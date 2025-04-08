@@ -81,6 +81,13 @@ async def log_transaction(request: Request, account_id: UUID4, data: schemas.Log
     await transaction.save()
     return schemas.Transaction.from_db_model(transaction, acc)
 
+@accounts.get("/{account_id}/transactions-count", dependencies=[Depends(require_auth)])
+async def count_transactions(request: Request, account_id: UUID4) -> schemas.CountTransactionsResponse:
+    """Returns the total number of transactions that the account has."""
+    acc = await fetch_account(request, account_id)
+    count = await models.Transaction.filter(account=acc).count()
+    return schemas.CountTransactionsResponse(count=count)
+
 @accounts.get("/{account_id}/transactions", dependencies=[Depends(require_auth)])
 async def list_transactions(
     request: Request,

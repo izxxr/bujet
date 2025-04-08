@@ -166,6 +166,17 @@ def test_balance(state: RouterTestState):
     assert response.status_code == 200
     assert response.json()["balance"] == state.baton["balance"]  # state.baton["balance"] set by previous test
 
+def test_transactions_count(state: RouterTestState):
+    assert state.user is not None
+
+    response = state.client.get(
+        "/accounts/{account_id}/transactions-count".format(account_id=state.baton["account"].id),
+        headers=make_headers(state.user),
+    )
+
+    assert response.status_code == 200
+    assert response.json()["count"] == 7
+
 def test_log_transaction(state: RouterTestState):
     assert state.user is not None
 
