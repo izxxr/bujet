@@ -101,6 +101,9 @@ async def list_transactions(
     - If none of after/before is provided, the `limit` number of latest
       transactions are returned.
 
+    - Both before and after can be set to obtain transactions in a range
+      of dates.
+
     Query Parameters
     ~~~~~~~~~~~~~~~~
     after:
