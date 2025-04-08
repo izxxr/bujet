@@ -17,3 +17,5 @@ def pytest_sessionstart(*args: Any):
 
 def pytest_sessionfinish(*args: Any):
     _rm_if_exist("db-test.sqlite3")
+    _rm_if_exist("db-test.sqlite3-shm")
+    _rm_if_exist("db-test.sqlite3-wal")
