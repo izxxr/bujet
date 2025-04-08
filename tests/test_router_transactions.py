@@ -115,10 +115,9 @@ def test_list_transactions(state: RouterTestState):
 
     assert response.status_code == 200
     data = response.json()
-    assert len(data) == 2
+    assert len(data) == 1
 
     assert data[0] == transactions[0]
-    assert data[1] == transactions[1]
 
     # Test - Get transactions before a date
     response = state.client.get(
@@ -129,11 +128,10 @@ def test_list_transactions(state: RouterTestState):
 
     assert response.status_code == 200
     data = response.json()
-    assert len(data) == 3
+    assert len(data) == 2
 
-    assert data[0] == transactions[4]
-    assert data[1] == transactions[5]
-    assert data[2] == transactions[6]
+    assert data[0] == transactions[5]
+    assert data[1] == transactions[6]
 
     # Test - Get transactions in a range of dates
     response = state.client.get(
@@ -147,12 +145,10 @@ def test_list_transactions(state: RouterTestState):
 
     assert response.status_code == 200
     data = response.json()
-    assert len(data) == 4
+    assert len(data) == 2
 
-    assert data[0] == transactions[2]
-    assert data[1] == transactions[3]
-    assert data[2] == transactions[4]
-    assert data[3] == transactions[5]
+    assert data[0] == transactions[3]
+    assert data[1] == transactions[4]
 
 
 def test_balance(state: RouterTestState):

@@ -128,9 +128,9 @@ async def list_transactions(
     kwargs = {}
 
     if after:
-        kwargs["date__gte"] = after
+        kwargs["date__gt"] = after
     if before:
-        kwargs["date__lte"] = before
+        kwargs["date__lt"] = before
 
     acc = await fetch_account(request, account_id)
     transactions = await models.Transaction.filter(**kwargs, account=acc).limit(limit).order_by("-date")
