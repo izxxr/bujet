@@ -58,3 +58,15 @@ Run the tests using:
 ```shell
 $ pytest
 ```
+
+## Roadmap
+
+- [x] Basic users support
+- [x] Financial Accounts and Transactions
+- [ ] Payor and Payees
+- [ ] Funds transfer
+- [ ] Transaction tags
+- [ ] Transaction categories
+- [ ] Currencies
+- [ ] More account types
+- [ ] Budgeting
