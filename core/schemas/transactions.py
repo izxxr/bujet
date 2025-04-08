@@ -13,6 +13,7 @@ from core.models import (
 )
 
 import datetime
+import decimal
 import uuid
 
 __all__ = (
@@ -41,7 +42,7 @@ class Transaction(APIModel):
 
     @field_validator("amount")
     @classmethod
-    def validate_amount(cls, value: int) -> int:
+    def validate_amount(cls, value: decimal.Decimal) -> decimal.Decimal:
         if value == 0:
             raise ValueError("amount cannot be zero")
         return value
@@ -80,7 +81,7 @@ class LogTransactionJSON(APIModel):
 
     @field_validator("amount")
     @classmethod
-    def validate_amount(cls, value: int) -> int:
+    def validate_amount(cls, value: decimal.Decimal) -> decimal.Decimal:
         if value == 0:
             raise ValueError("amount cannot be zero")
         return value
@@ -110,7 +111,7 @@ class EditTransactionJSON(APIModel):
 
     @field_validator("amount")
     @classmethod
-    def validate_amount(cls, value: int) -> int:
+    def validate_amount(cls, value: decimal.Decimal) -> decimal.Decimal:
         if value == 0:
             raise ValueError("amount cannot be zero")
         return value

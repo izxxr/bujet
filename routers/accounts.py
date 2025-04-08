@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from tortoise.functions import Sum
 from pydantic import UUID4, AwareDatetime
 from fastapi import APIRouter, HTTPException, Request, Response, Depends
 from core.deps import require_auth
@@ -171,3 +172,19 @@ async def edit_transaction(request: Request, account_id: UUID4, transaction_id: 
     await transaction.save()
 
     return schemas.Transaction.from_db_model(transaction, acc)
+
+# Balance calculation
+
+@accounts.get("/{account_id}/balance", dependencies=[Depends(require_auth)])
+async def calculate_balance(request: Request, account_id: UUID4) -> schemas.CalculateBalanceResponse:
+    """Calculates the balance of the account.
+    
+    Like transactions, the balance is also returned in minor units format
+    and must be divided by account's currency_decimals to obtain the actual
+    balance value.
+    """
+    acc = await fetch_account(request, account_id)
+    vals = await models.Transaction.filter(account=acc).annotate(balance=Sum("amount")).first()
+
+    # Transaction.balance is added by annotate()
+    return schemas.CalculateBalanceResponse(vals.balance)  # type: ignore

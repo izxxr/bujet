@@ -57,3 +57,11 @@ class FinancialAccount(Model):
 
     created_at = fields.DatetimeField(auto_now_add=True)
     """The time when this account was created."""
+
+    currency_decimals = fields.IntField(default=2)
+    """The number of decimals that the currency has that this account uses.
+
+    This attribute is applicable for all transaction amounts associated
+    to this account. For more information, see the "amount" field's documentation
+    in Transaction model.
+    """

@@ -50,13 +50,13 @@ def test_list_transactions(state: RouterTestState):
     assert state.user is not None
 
     transactions: list[dict[str, Any]] = [
-        {"amount": 300, "date": _date_std_isoformat(2023, 11, 9, tzinfo=datetime.timezone.utc)},
-        {"amount": 640, "date": _date_std_isoformat(2024, 3, 1, tzinfo=datetime.timezone.utc)},
-        {"amount": 200, "date": _date_std_isoformat(2024, 12, 11, tzinfo=datetime.timezone.utc)},
-        {"amount": 250, "date": _date_std_isoformat(2025, 8, 4, tzinfo=datetime.timezone.utc)},
-        {"amount": 300, "date": _date_std_isoformat(2025, 8, 6, tzinfo=datetime.timezone.utc)},
-        {"amount": 1000, "date": _date_std_isoformat(2025, 9, 12, tzinfo=datetime.timezone.utc)},
-        {"amount": 950, "date": _date_std_isoformat(2025, 12, 11, tzinfo=datetime.timezone.utc)},
+        {"amount": 133, "date": _date_std_isoformat(2023, 11, 9, tzinfo=datetime.timezone.utc)},
+        {"amount": -12, "date": _date_std_isoformat(2024, 3, 1, tzinfo=datetime.timezone.utc)},
+        {"amount": 2512, "date": _date_std_isoformat(2024, 12, 11, tzinfo=datetime.timezone.utc)},
+        {"amount": 3200, "date": _date_std_isoformat(2025, 8, 4, tzinfo=datetime.timezone.utc)},
+        {"amount": -532, "date": _date_std_isoformat(2025, 8, 6, tzinfo=datetime.timezone.utc)},
+        {"amount": 3211, "date": _date_std_isoformat(2025, 9, 12, tzinfo=datetime.timezone.utc)},
+        {"amount": 999, "date": _date_std_isoformat(2025, 12, 11, tzinfo=datetime.timezone.utc)},
     ]
     responses: list[dict[str, Any]] = []
 
@@ -66,6 +66,7 @@ def test_list_transactions(state: RouterTestState):
             json=transaction,
             headers=make_headers(state.user),
         )
+        print(response.json())
         assert response.status_code == 200
         responses.append(response.json())
 
@@ -148,6 +149,20 @@ def test_list_transactions(state: RouterTestState):
     assert data[2] == transactions[3]
     assert data[3] == transactions[4]
 
+
+def test_balance(state: RouterTestState):
+    assert state.user is not None
+
+    response = state.client.get(
+        "/accounts/{account_id}/balance".format(account_id=state.baton["account"].id),
+        headers=make_headers(state.user),
+    )
+
+    assert response.status_code == 200
+
+    print(response.json())
+
+    assert False
 
 def test_log_transaction(state: RouterTestState):
     assert state.user is not None
@@ -239,7 +254,7 @@ def test_edit_transaction(state: RouterTestState):
         json={"description": None}
     )
     data = response.json()
-
+    print(data)
     assert response.status_code == 200
     assert data.get("description") == None
 

@@ -22,10 +22,17 @@ class Transaction(Model):
     """The account that this transaction is performed against."""
 
     amount = fields.IntField()
-    """The transaction amount.
+    """The transaction amount in minor units format.
 
-    Positive values indicate income while negative values indicate
-    expenses. This must be a non-zero value (validated by schemas).
+    This value is determined by the currency_decimals attribute of
+    account that this transaction belongs to (ususally 2).
+
+    For example, assuming the currency_decimals is set to 2 then
+    if this amount is 2150 then the actual amount is given by 2150 / 10^2 = 21.50.
+
+    In general, we can say
+
+    actual amount = amount / (10^currency_decimals) 
     """
 
     description = fields.TextField(
