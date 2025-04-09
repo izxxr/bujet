@@ -106,6 +106,17 @@ $ npm run build
 
 The frontend will be built in `dist` directory.
 
+## API Base URL
+By default, Bujet runs backend server at https://localhost:8000 which is the default base URL for the API.
+
+If you are hosting the API using an external service, you might want to provide an alternative `BUJET_SERVER_BASE_URL` environment variable for frontend:
+
+```bash
+BUJET_SERVER_BASE_URL="https://bujetapi.myhosting.com"
+```
+
+Now, frontend will perform all its request against this base URL.
+
 ### Running
 After steps above are done, navigate back to the downloaded directory and run Bujet server using:
 
