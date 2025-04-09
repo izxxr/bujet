@@ -1,72 +1,119 @@
+![Bujet Dashboard](assets_github/dashboard.png)
+
 # Bujet
-Backend server for Bujet, a simple finance tracker.
+Bujet is a simple and intuitive finance tracking app.
 
-## Usage
-To run the server, **Python 3.9 or higher** is needed.
+Featuring:
 
-Clone this repository:
+- 🖥️ **Simple and intuitive user interface**
+- 💵 **Convenient accounts management and transactions logging**
+- 📊 **Summary and insights of financial details**
+- ... and much more!
 
-```shell
-$ git clone https://github.com/izxxr/bujet.git
-```
+Bujet is a **self hosted app** which means the server, databases, and frontend are
+all ran and managed at user's local machine.
 
-### Installation
-In the cloned directory, run the following command to install the dependencies.
+## Installation
+Bujet can be installed in two ways:
 
-```shell
-$ pip install -r requirements.txt
-```
+1. Automatic Installation - recommended for running Bujet locally.
+2. Manual Installation - recommended for deployments on cloud servers.
 
-### Generating Encryption Key
-Bujet uses `cryptography.Fernet` encryption for storing sensitive information in
-database. This requires a Fernet encryption key to be generated and provided in
-`BUJET_ENCRYPTION_KEY` environment variable.
-
-In order to generate a Fernet encryption key, you can use `cryptography.Fernet.generate_key()`
-method as shown in the following Python code:
-
-```py
-from cryptography.fernet import Fernet
-
-print("Encryption key: ", Fernet.generate_key())
-```
-
-The generated key must be provided through the environment variables. Create a `.env`
-file and provide the encryption key:
+First, download and install **[Git](https://git-scm.com/downloads)** and after installation, open command line and run the following command:
 
 ```bash
-BUJET_ENCRYPTION_KEY="put encryption key here"
+$ git clone --recurse-submodules https://github.com/izxxr/bujet.git
 ```
 
-### Running the Server
-Run the FastAPI development server using:
+All the files be cloned in `bujet` directory. Use `cd bujet` to navigate to this directory for the next installation steps.
 
-```shell
-$ fastapi dev app.py
+> ℹ️ Bujet uses Git submodules to manage server and client source code in a single repository. The client or frontend code is kept as a submodule. For this reason, we are passing `--recurse-submodules` to `clone` command. Without this option, the frontend submodule is not cloned.
+>
+> For the same reason, it is not recommended to download ZIP file directly from GitHub. If you are still doing it, you will have to manually download the frontend files from [this repository](https://github.com/izxxr/bujet-client) and paste them in `frontend` directory.
+
+## Dependencies
+Bujet requires [Node.JS v22 or higher](https://nodejs.org/en/download) and [Python 3.9 or higher](https://python.org/downloads) for running.
+
+
+After these tools are installed, in the downloaded directory, open command prompt or any available terminal and run the following commands:
+
+Install Python dependencies:
+
+```sh
+$ python -m pip install -r requirements.txt
 ```
 
-## Testing
-The API routes tests are included under `tests/` directory. To run them, `pytest`
-must be installed first.
+## Automatic Installation
+Bujet comes bundled with an automatic installation tool that sets up Bujet with a single command. This tool is
+used for local hosting only.
 
-```shell
-$ pip install -U pytest
+> ⚠️ Automatic installation using `-I` flag is intended for local hosting only. The auto installer provided by Bujet uses installation methods that are only safe in a local environment. If you intend to deploy Bujet on a cloud server, please read manual installation section.
+
+In the downloaded directory, run the `python autorun.py -I` command:
+
+```bash
+$ python autorun.py -I
 ```
 
-Run the tests using:
+For the subsequent prompt, enter `Y` to confirm installation. The auto installation tool will install and setup required tools.
 
-```shell
-$ pytest
+After installation is done, run Bujet server using:
+
+```bash
+$ python autorun.py
 ```
 
-## Roadmap
+**Start using Bujet at [http://localhost:5000](http://localhost:5000) 🚀**
 
-- [x] Basic users support
-- [x] Financial Accounts and Transactions
-- [ ] Payor and Payees
-- [ ] Funds transfer
-- [ ] Transaction tags
-- [ ] Transaction categories
-- [ ] Currencies
-- [ ] More account types
-- [ ] Budgeting
+## Manual Installation
+In case you intend to deploy Bujet on cloud or automatic installation does not work for any reason, you can install Bujet manually.
+
+### Encryption Key
+Bujet uses `cryptography.Fernet` for encrypting sensitive credentials. This requires an encryption key to be provided through `BUJET_ENCRYPTION_KEY` environment variable.
+
+To generate a key, run the following command:
+
+```bash
+$ python autorun.py --gen-key
+```
+
+Copy the resulting encryption key and create an `.env` file in the directory containing autorun.py file with following content:
+
+```bash
+BUJET_ENCRYPTION_KEY="paste encryption key here"
+```
+
+### Setting up Frontend
+The frontend needs to be setup using npm.
+
+First, install the required packages navigate to `frontend` directory:
+
+```bash
+$ cd frontend
+```
+
+Run the following command to install required packages:
+
+```bash
+$ npm i --production=false
+```
+
+In order to build the frontend, run the following command:
+
+```bash
+$ npm run build
+```
+
+The frontend will be built in `dist` directory.
+
+### Running
+After steps above are done, navigate back to the downloaded directory and run Bujet server using:
+
+```bash
+$ python autorun.py
+```
+
+**Start using Bujet at [http://localhost:5000](http://localhost:5000) 🚀**
+
+## Contributing
+All contributions are welcomed whether in the form of issues (for reporting bugs or suggesting features) or making code changes via pull requests.

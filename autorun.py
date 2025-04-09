@@ -136,7 +136,17 @@ def main():
              "As a preventive measure, not passing this option leads to install.py script showing an error."
     )
 
+    parser.add_argument(
+        "--gen-key",
+        action="store_true",
+        help="Generate Fernet encryption key.",
+    )
+
     args = parser.parse_args()
+
+    if args.gen_key:
+        print(Fernet.generate_key().decode())
+        return
 
     if sys.version_info < (3, 9):
         _log.error("Python 3.9 or higher is required. Install latest version from: https://python.org/downloads")
