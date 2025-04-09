@@ -29,19 +29,13 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(version="0.1.0", lifespan=lifespan)
-origins = [
-    "https://bujet.onrender.com",
-    "https://bujet-api.onrender.com",
-    "http://localhost",
-    "http://localhost:5000",
-    "http://localhost:8000",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
