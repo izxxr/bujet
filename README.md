@@ -1,7 +1,7 @@
 ![Bujet Dashboard](assets_github/dashboard.png)
 
 # Bujet
-Bujet is a simple and intuitive finance tracking app.
+Bujet is a personal-use, simple and intuitive finance tracking app.
 
 Featuring:
 
