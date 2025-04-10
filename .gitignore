@@ -175,3 +175,5 @@ cython_debug/
 
 # Misc.
 test.*
+
+.internal_backups/*
